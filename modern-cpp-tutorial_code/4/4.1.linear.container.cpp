@@ -9,6 +9,7 @@
 #include <array>
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 void foo(int *p, int len) {
   for (int i = 0; i != len; ++i) {
@@ -67,3 +68,20 @@ int main() {
 
   return 0;
 }
+
+
+/*
+g++ -o 4.1.linear.container.out 4.1.linear.container.cpp
+
+std::array is more safer and more features.
+
+| Feature                     | C-style Array                            | `std::array`                         |
+|-----------------------------|------------------------------------------|--------------------------------------|
+| Syntax                      | `type arrayName[size];`                  | `std::array<type, size> arrayName;` |
+| Size                        | Fixed, must be known at compile time     | Fixed, must be known at compile time  |
+| Bounds Checking             | No                                       | Yes (`at()` method)                  |
+| Member Functions            | None                                     | Yes (size, begin, end, etc.)        |
+| Iteration                   | Can use pointers or loops                | Can use iterators (begin/end)       |
+| Decay to Pointers           | Yes                                      | No                                   |
+| Initialization              | Can use initializer list or loop         | Can use initializer list             |
+*/

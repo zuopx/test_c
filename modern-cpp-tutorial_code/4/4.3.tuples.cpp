@@ -78,3 +78,14 @@ int main() {
     std::cout << tuple_index(new_tuple, i) << std::endl; // runtime indexing
   }
 }
+
+
+/*
+g++ -o 4.3.tuples.out 4.3.tuples.cpp
+
+tuple unpack(also): auto [gpa, grade, name] = get_student(1);
+std::get: template <size_t _Ip, class... _Tp>, 依赖一个编译器的常量（模版在编译器展开）
+std::variant: 动态类型
+
+最后为了遍历数组，利用template、constexpr在编译期期间就自动计算索引（用于std::get）
+*/
