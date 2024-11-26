@@ -23,3 +23,9 @@ int main() {
   for (auto element : vec)
     std::cout << element << std::endl; // read only
 }
+
+/*
+g++ -o 2.11.for.loop.out 2.11.for.loop.cpp
+
+区间迭代
+*/

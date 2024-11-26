@@ -31,3 +31,10 @@ int main() {
        ++element)
     std::cout << *element << std::endl;
 }
+
+/*
+g++ -o 2.03.if.switch.out 2.03.if.switch.cpp
+
+借鉴go语言，在if和switch表达式中，先求值，再断言
+if (auto a = xxx; a != nullpt) {...}
+*/

@@ -19,3 +19,11 @@ int main() {
   }();
   return 0;
 }
+
+
+/*
+c和cpp共存时，分开编译再链接
+
+gcc -c -o foo.o foo.c
+g++ -o 1.1.c.and.out 1.1.c.and.cpp foo.o
+*/

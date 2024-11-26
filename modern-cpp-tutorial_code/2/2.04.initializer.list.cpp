@@ -61,3 +61,11 @@ int main() {
 
   return 0;
 }
+
+/*
+g++ -o 2.04.initializer.list.out 2.04.initializer.list.cpp
+
+统一的初始化语法（大括号初始化）：Foo foo(1, 2) 等效于 Foo foo{1, 2}
+
+初始化列表std::initializer_list，“飞入寻常百姓家”
+*/

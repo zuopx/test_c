@@ -14,3 +14,8 @@ constexpr auto iter(Int<0>) -> Int<0>;
 template <int i> constexpr auto iter(Int<i>) { return iter(Int<i - 1>{}); }
 
 int main() { decltype(iter(Int<10>{})) a; }
+
+
+/*
+见2.09.decltype.auto.insight.cpp
+*/

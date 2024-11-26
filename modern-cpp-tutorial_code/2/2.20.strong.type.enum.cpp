@@ -43,3 +43,15 @@ int main() {
 
   return 0;
 }
+
+
+/*
+g++ -o 2.20.strong.type.enum.out 2.20.strong.type.enum.cpp
+
+**std::enable_if**：
+   ```cpp
+   typename std::enable_if<std::is_enum<T>::value, std::ostream>::type &stream
+   ```
+   这里使用了 `std::enable_if`，它的作用是根据 `std::is_enum<T>::value` 的值来决定这个模板是否有效。
+   如果 `T` 是枚举类型，则 `std::enable_if` 返回 `std::ostream` 类型，否则这个重载就不可用。
+*/

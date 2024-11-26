@@ -54,3 +54,11 @@ int main() {
   std::cout << s.value << std::endl;
   std::cout << s.str << std::endl;
 }
+
+/*
+g++ -o 2.19.delegate.constructor.out 2.19.delegate.constructor.cpp 
+
+Base() = detele: 禁用默认构造函数
+virtual void foo() final: 不可被子类重载
+virtual void foo(int v) override: 重载父类方法（因此会检查父类有没有该方法）
+*/

@@ -49,3 +49,9 @@ int main() {
 
   return 0;
 }
+
+/*
+g++ -o 2.02.constexpr.out 2.02.constexpr.cpp
+
+由于编译器对代码的优化，某些不合法的代码也能通过编译
+*/

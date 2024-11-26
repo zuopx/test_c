@@ -21,3 +21,7 @@ int main() {
   std::vector<std::vector<int>> matrix;
   std::vector<MagicType<(1 > 2)>> magic; // legal, but not recommended
 }
+
+/*
+g++ -o 2.12.external.template.out 2.12.external.template.cpp
+*/

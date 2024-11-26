@@ -22,3 +22,10 @@ int main() {
     std::cout << "type z == type x" << std::endl;
   return 0;
 }
+
+/*
+g++ -o 2.07.decltype.out 2.07.decltype.cpp
+
+- **标准性**：`decltype` 是 C++11 的标准部分，任何符合 C++11 标准的编译器都支持它。`typeof` 是 GCC 和 Clang 的扩展，不是 C++ 标准的一部分。
+- **功能**：`decltype` 可以用于更复杂的表达式，并且与函数返回类型、模板类型推导等场景更兼容。`typeof` 更简单，通常只能用于变量。
+*/

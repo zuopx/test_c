@@ -49,3 +49,13 @@ int main() {
   printf3(111, 123, "alpha", 1.2);
   return 0;
 }
+
+/*
+g++ -o 2.15.variadic.template.param.out 2.15.variadic.template.param.cpp
+
+这里引入了新的语法...，四种用法：
+- sizeof...
+- typename... Ts
+- Ts... args
+- args...
+*/

@@ -30,3 +30,10 @@ int main() {
   // FakeDarkMagic<bool> me;
   TrueDarkMagic<bool> you;
 }
+
+/*
+g++ -o 2.13.alias.template.out 2.13.alias.template.cpp
+
+- typedef作用于类型，模板不是类型，模板是产生类型
+- using 比 typedef 更直观
+*/

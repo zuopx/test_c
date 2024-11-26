@@ -41,3 +41,11 @@ int main() {
   // auto auto_arr2[10] = {arr}; // invalid
   return 0;
 }
+
+/*
+g++ --std=c++20 -o 2.06.auto.out 2.06.auto.cpp
+
+c++20: auto可用于函数传参
+
+auto不可用于推导数组类型
+*/

@@ -20,3 +20,9 @@ int main() {
   std::cout << x << ", " << y << ", " << z << std::endl;
   return 0;
 }
+
+/*
+g++ -o 2.05.structured.binding.out 2.05.structured.binding.cpp
+
+新类型std::tuple和构造方法std::make_tuple
+*/
