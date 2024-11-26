@@ -32,3 +32,19 @@ int main() {
 
     return 0;
 }
+
+
+/*
+g++ -o 3.3.rvalue.out 3.3.rvalue.cpp
+
+首先reference的重载，形参分别为左值引用和右值引用，那么分别对应的实参为左值和右值
+
+rv1和rv2的类型都是string&&，表示右值引用，也就是指向右值的指针！
+为什么指针可以指向右值？为了延长右值的生命周期，减少拷贝、方便移动（所以就创建了这种语法）。
+
+std::string&& rv3 = std::move(lv1);
+std::string& lv3 = lv1;
+std::cout << &rv3 << std::endl;
+std::cout << &lv3 << std::endl;
+结果表明，rv3和lv3都指向了同一地址
+*/

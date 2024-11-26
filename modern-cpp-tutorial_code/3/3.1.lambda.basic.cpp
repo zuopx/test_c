@@ -53,3 +53,21 @@ int main() {
     lambda_generic();
     return 0;
 }
+
+
+/*
+g++ -o 3.1.lambda.basic.out 3.1.lambda.basic.cpp
+
+lambda: [捕获列表](参数列表) mutable(可选) 异常属性 -> 返回类型 {函数体}
+
+-   [] 空捕获列表
+-   [name1, name2, . . . ] 捕获一系列变量
+-   [&] 引用捕获, 从函数体内的使用确定引用捕获列表
+-   [=] 值捕获, 从函数体内的使用确定值捕获列表
+
+std::make_unique: 分配内存并返回std::unique_ptr，自动管理对象声明周期（离开作用域时自动销毁）
+std::move: 将左值转换成右值
+
+在上面的代码中，important 是一个独占指针，是不能够被 “=” 值捕获到，
+这时候我们可以将其转移为右值，在表达式中初始化。
+*/

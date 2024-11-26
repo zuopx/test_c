@@ -30,3 +30,12 @@ int main() {
 
     return 0;
 }
+
+
+/*
+g++ -o 3.6.move.semantics.out 3.6.move.semantics.cpp
+
+push_back根据参数类型，触发深拷贝或浅拷贝；
+深拷贝另辟内存，不影响实参
+浅拷贝和实参共用内存，但为了安全和自洽，就把实参改变了，从而独占了内存
+*/
