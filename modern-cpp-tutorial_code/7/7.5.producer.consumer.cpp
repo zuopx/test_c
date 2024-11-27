@@ -62,3 +62,17 @@ int main() {
   }
   return 0;
 }
+
+
+/*
+g++ -o 7.5.producer.consumer.out 7.5.producer.consumer.cpp 
+
+std::condition_variable:
+    wait: 阻塞，接受一个std::unique_lock，和 lambda表达式（防止虚假唤醒）
+        例如：cv.wait(lock, [] { return !produced_nums.empty(); })
+    notify_one, notify_all: 唤醒
+
+std::this_thread::sleep_for
+std::chrone::milliseconds
+std::queue
+*/

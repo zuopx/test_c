@@ -38,3 +38,13 @@ int main() {
 
   return 0;
 }
+
+
+/*
+g++ -o 6.1.regex.out 6.1.regex.cpp 
+
+和其它语言类似的正则表达式接口
+    std::regex: class
+    std::regex_match: func
+    std::smatch: class
+*/

@@ -51,3 +51,12 @@ int main() {
 
   // Foo instance will be destroyed when leaving the scope
 }
+
+
+/*
+g++ -o 5.2.unique.ptr.out 5.2.unique.ptr.cpp
+
+std::uinque_ptr: 可转移专属所有权智能指针，可根据其所有权状态隐式转换为布尔值
+    auto p2 = p1: illegal, unique_ptr(const unique_ptr&) = delete;
+    auto p2 = std::move(p1): legal
+*/

@@ -31,3 +31,12 @@ int main() {
   std::cout << num << std::endl;
   return 0;
 }
+
+
+/*
+g++ -o 9.2.literals.out 9.2.literals.cpp
+
+std::string str = R"(C:\\File\\To\\Path)"; 类似python
+
+后缀运算符，奇技淫巧，了解即可
+*/

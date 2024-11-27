@@ -24,3 +24,10 @@ int main() {
   std::cout << count << std::endl;
   return 0;
 }
+
+
+/*
+g++ -o 7.6.atomic.out 7.6.atomic.cpp
+
+原子类型，提供原子操作，本质上也是锁，但是是CPU指令级别的锁（std::mutex是操作系统级别的锁）
+*/

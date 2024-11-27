@@ -107,3 +107,10 @@ int main() {
   sequential_consistent_order();
   return 0;
 }
+
+
+/*
+g++ -o 7.8.memory.order.out 7.8.memory.order.cpp
+
+基于原子操作的更高端的操作，暂时放下
+*/

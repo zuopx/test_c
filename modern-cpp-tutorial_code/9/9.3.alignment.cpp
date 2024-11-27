@@ -16,7 +16,7 @@ struct Storage {
   long long d;
 };
 
-struct alignas(std::max_align_t) AlignasStorage {
+struct alignas(max_align_t) AlignasStorage {
   char a;
   int b;
   double c;
@@ -28,3 +28,8 @@ int main() {
   std::cout << alignof(AlignasStorage) << std::endl;
   return 0;
 }
+
+
+/*
+g++ -o 9.3.alignment.out 9.3.alignment.cpp
+*/

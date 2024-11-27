@@ -21,3 +21,9 @@ int main() {
   std::cout << std::boolalpha << a.is_lock_free() << std::endl;
   return 0;
 }
+
+
+/*
+g++ -o 7.7.is.lock.free.out 7.7.is.lock.free.cpp
+undefined reference to `__atomic_is_lock_free'
+*/

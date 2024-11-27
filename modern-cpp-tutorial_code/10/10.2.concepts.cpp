@@ -68,3 +68,9 @@ int main() {
   // print(v); // error
   return 0;
 }
+
+
+/*
+g++ -std=c++20 -o 10.2.concepts.out 10.2.concepts.cpp
+编译报错gcc version 12.2.0 (Debian 12.2.0-14)
+*/

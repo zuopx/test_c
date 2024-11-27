@@ -41,3 +41,10 @@ int main() {
     std::cout << "exception captured from block_throw()" << std::endl;
   }
 }
+
+
+/*
+g++ -o 9.1.noexcept.out 9.1.noexcept.cpp
+
+noexcept 还能够做操作符，用于操作一个表达式，当表达式无异常时，返回 true，否则返回 false。
+*/

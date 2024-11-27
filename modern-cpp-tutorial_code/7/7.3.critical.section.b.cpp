@@ -38,3 +38,10 @@ int main() {
   t2.join();
   return 0;
 }
+
+
+/*
+g++ -o 7.3.critical.section.b.out 7.3.critical.section.b.cpp
+
+std::unique_lock 在 std::lock_guard 的基础上，可通过lock和unlock方法，更精细地决定锁的范围，因此优先使用std::unique_lock
+*/
