@@ -1,3 +1,7 @@
+/*
+g++ -o sample1.out sample1_unittest.cc sample1.cc -L/usr/lib/x86_64-linux-gnu -lgtest -lgtest_main
+*/
+
 // Copyright 2005, Google Inc.
 // All rights reserved.
 //

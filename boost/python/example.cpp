@@ -10,7 +10,7 @@ Boost.Python is a separately-compiled (as opposed to header-only) library
     ./b2 --help
     ./b2 stage --help
     ./b2 stage: 在./stage目录下生成链接库
-    ./b2 install: 在usr/local目录头文件和链接库
+    ./b2 install: 在usr/local目录下生成头文件和链接库
     ./b2 install link=static variant=debug: 生成静态链接库
     ./b2 install cxxflags=-fPIC link=static variant=debug: 生成静态链接库，用于动态链接
 
@@ -20,7 +20,7 @@ Boost.Python is a separately-compiled (as opposed to header-only) library
     g++ -shared -fPIC -o example.so example.cpp /usr/local/lib/libboost_python312.a -I/root/miniconda3/envs/py3/include/python3.12
 
 运行：
-    export LD_LIBRARY_PATH=/usr/local/lib
+    export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
     echo $LD_LIBRARY_PATH
     python test_example.py
 
