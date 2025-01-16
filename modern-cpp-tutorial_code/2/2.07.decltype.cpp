@@ -26,6 +26,20 @@ int main() {
 /*
 g++ -o 2.07.decltype.out 2.07.decltype.cpp
 
-- **标准性**：`decltype` 是 C++11 的标准部分，任何符合 C++11 标准的编译器都支持它。`typeof` 是 GCC 和 Clang 的扩展，不是 C++ 标准的一部分。
-- **功能**：`decltype` 可以用于更复杂的表达式，并且与函数返回类型、模板类型推导等场景更兼容。`typeof` 更简单，通常只能用于变量。
+decltype vs typeof:
+- **标准性**：`decltype` 是 C++11 的标准部分，任何符合 C++11 标准的编译器都支持它。
+            `typeof` 是 GCC 和 Clang 的扩展，不是 C++ 标准的一部分。
+- **功能**：`decltype` 可以用于更复杂的表达式，并且与函数返回类型、模板类型推导等场景更兼容。
+            `typeof` 更简单，通常只能用于变量。
+
+std::is_same
+  编译时判断类型是否相同
+  - **模板参数**：`std::is_same` 是一个模板结构，其定义如下：
+    ```cpp
+    template <class T, class U>
+    struct is_same : std::false_type {};
+    
+    template <class T>
+    struct is_same<T, T> : std::true_type {};
+    ```
 */
