@@ -1,6 +1,6 @@
 # TODO 4: Update the minimum required version to 3.15
 
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.15)
 
 # set the project name and version
 project(Tutorial VERSION 1.0)
@@ -12,8 +12,8 @@ project(Tutorial VERSION 1.0)
 #   Hint: Use target_compile_features()
 
 # specify the C++ standard
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
+add_library(tutorial_compiler_flags INTERFACE)
+target_compile_features(tutorial_compiler_flags INTERFACE cxx_std_11)
 
 # TODO 5: Create helper variables to determine which compiler we are using:
 # * Create a new variable gcc_like_cxx that is true if we are using CXX and
@@ -49,7 +49,7 @@ add_executable(Tutorial tutorial.cxx)
 
 # TODO 2: Link to tutorial_compiler_flags
 
-target_link_libraries(Tutorial PUBLIC ${EXTRA_LIBS})
+target_link_libraries(Tutorial PUBLIC ${EXTRA_LIBS} tutorial_compiler_flags)
 
 # add the binary tree to the search path for include files
 # so that we will find TutorialConfig.h
