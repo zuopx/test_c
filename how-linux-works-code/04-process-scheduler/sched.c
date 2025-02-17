@@ -14,6 +14,7 @@
 static unsigned long nloop_per_resol;
 static struct timespec start;
 
+// `static` 函数用于限制函数的作用域，只在定义它的源文件可见
 static inline long diff_nsec(struct timespec before, struct timespec after)
 {
     return ((after.tv_sec * NSECS_PER_SEC + after.tv_nsec) - (before.tv_sec * NSECS_PER_SEC + before.tv_nsec));
