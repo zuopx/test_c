@@ -37,7 +37,7 @@ std::is_same
   - **模板参数**：`std::is_same` 是一个模板结构，其定义如下：
     ```cpp
     template <class T, class U>
-    struct is_same : std::false_type {};
+    struct is_same : std::false_type {}; (== struct is_same<T, U> : std::false_type {}) 
     
     template <class T>
     struct is_same<T, T> : std::true_type {};

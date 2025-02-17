@@ -27,5 +27,5 @@ int main() {
 /*
 g++ -o 2.11.for.loop.out 2.11.for.loop.cpp
 
-区间迭代
+区间迭代（遍历）
 */

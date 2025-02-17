@@ -43,6 +43,8 @@ int main() {
 }
 
 /*
+auto，类似模板，编译期间生成多个函数版本
+
 g++ --std=c++20 -o 2.06.auto.out 2.06.auto.cpp
 
 c++20: auto可用于函数传参

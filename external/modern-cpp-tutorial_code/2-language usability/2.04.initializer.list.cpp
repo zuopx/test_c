@@ -1,11 +1,10 @@
-//
-// 2.4.initializer.list.cpp
-// chapter 2 language usability
-// modern cpp tutorial
-//
-// created by changkun at changkun.de
-// https://github.com/changkun/modern-cpp-tutorial
-//
+/*
+g++ -o 2.04.initializer.list.out 2.04.initializer.list.cpp
+
+统一的初始化语法（大括号初始化）：Foo foo(1, 2) 等效于 Foo foo{1, 2}
+
+初始化列表std::initializer_list，“飞入寻常百姓家”
+*/
 
 #include <initializer_list>
 #include <iostream>
@@ -22,13 +21,13 @@ class MagicFoo {
 public:
   std::vector<int> vec;
   MagicFoo(std::initializer_list<int> list) {
-    for (std::initializer_list<int>::iterator it = list.begin();
+    for (auto it = list.begin();
          it != list.end(); ++it) {
       vec.push_back(*it);
     }
   }
   void foo(std::initializer_list<int> list) {
-    for (std::initializer_list<int>::iterator it = list.begin();
+    for (auto it = list.begin();
          it != list.end(); ++it) {
       vec.push_back(*it);
     }
@@ -49,11 +48,11 @@ int main() {
   std::cout << "arr[0]: " << arr[0] << std::endl;
   std::cout << "foo:" << foo.value_a << ", " << foo.value_b << std::endl;
   std::cout << "vec: ";
-  for (std::vector<int>::iterator it = vec.begin(); it != vec.end(); ++it) {
+  for (auto it = vec.begin(); it != vec.end(); ++it) {
     std::cout << *it << std::endl;
   }
   std::cout << "magicFoo: ";
-  for (std::vector<int>::iterator it = magicFoo.vec.begin();
+  for (auto it = magicFoo.vec.begin();
        it != magicFoo.vec.end(); ++it) {
     std::cout << *it << std::endl;
   }
@@ -61,11 +60,3 @@ int main() {
 
   return 0;
 }
-
-/*
-g++ -o 2.04.initializer.list.out 2.04.initializer.list.cpp
-
-统一的初始化语法（大括号初始化）：Foo foo(1, 2) 等效于 Foo foo{1, 2}
-
-初始化列表std::initializer_list，“飞入寻常百姓家”
-*/

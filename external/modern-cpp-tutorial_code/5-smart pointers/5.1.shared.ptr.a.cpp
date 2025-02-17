@@ -1,6 +1,6 @@
 //
 // 5.1.shared.ptr.cpp
-// chapter 05 start pointers and memory management
+// chapter 05 smart pointers and memory management
 // modern c++ tutorial
 //
 // created by changkun at changkun.de
