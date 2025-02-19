@@ -16,6 +16,7 @@ g++ -o 2.16.fold.expression.out 2.16.fold.expression.cpp
 
 ( pack op ... )  // 左折叠
 ( ... op pack )  // 右折叠
+(init op ... op pack)  // 双目折叠
 这里 `pack` 是一个参数包，`op` 是一个二元操作符（如 `+`, `*`, `&&`, `||` 等），而 `...` 表示参数包的展开。
 
 https://cppinsights.io/展开：

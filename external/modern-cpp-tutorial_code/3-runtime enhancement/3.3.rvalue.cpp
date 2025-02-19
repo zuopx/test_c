@@ -15,8 +15,7 @@ void reference(std::string &&str) { std::cout << "rvalue" << std::endl; }
 int main() {
     std::string lv1 = "string,"; // lv1 is a lvalue
     // std::string&& r1 = lv1;           // illegal, rvalue can't ref to lvalue
-    std::string &&rv1 =
-        std::move(lv1); // legal, std::move can convert lvalue to rvalue
+    std::string &&rv1 = std::move(lv1); // legal, std::move can convert lvalue to rvalue
     std::cout << rv1 << std::endl; // string,
 
     const std::string &lv2 = lv1 + lv1; // legal, const lvalue reference can

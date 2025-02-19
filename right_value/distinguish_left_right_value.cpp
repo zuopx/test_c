@@ -8,18 +8,21 @@
 */
 #include <iostream>
 #include <string>
+#include <boost/type_index.hpp>
 
 using namespace std;
 
 void reference(string& str)
 {
-    cout << "left value" << endl;
+    cout << str << "\tleft value\t";
+    cout << "Variable str is of type: " << boost::typeindex::type_id_with_cvr<decltype(str)>().pretty_name() << endl;
 }
 
 
 void reference(string&& str)
 {
-    cout << "right value" << endl;
+    cout << str << "\tright value\t";
+    cout << "Variable str is of type: " << boost::typeindex::type_id_with_cvr<decltype(str)>().pretty_name() << endl;
 }
 
 
@@ -31,4 +34,8 @@ int main()
     reference(s);  // left
     reference(s1);  // left
     reference(move(s));  // right
+
+    cout << "Variable s is of type: " << boost::typeindex::type_id_with_cvr<decltype(s)>().pretty_name() << endl;
+    cout << "Variable s1 is of type: " << boost::typeindex::type_id_with_cvr<decltype(s1)>().pretty_name() << endl;
+    cout << "Variable move(s) is of type: " << boost::typeindex::type_id_with_cvr<decltype(move(s))>().pretty_name() << endl;
 }

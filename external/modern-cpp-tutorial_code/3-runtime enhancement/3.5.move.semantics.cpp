@@ -25,7 +25,8 @@ class A {
         delete pointer;
     }
 };
-// avoid compiler optimization
+
+// avoid compiler optimization: -O0
 A return_rvalue(bool test) {
     A a, b;
     if (test)
@@ -33,6 +34,7 @@ A return_rvalue(bool test) {
     else
         return b; // equal to static_cast<A&&>(b);
 }
+
 int main() {
     A obj = return_rvalue(false);
     std::cout << "obj:" << std::endl;
