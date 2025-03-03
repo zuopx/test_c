@@ -4,8 +4,8 @@ c,c++
 
 ##  dependency
 
-boost_1_85_0: /root/project/c/boost_1_85_0
-python3.12.4: /root/miniconda3/envs/py3
+boost_1_81_0: libboost1.81-all-dev/stable,now 1.81.0-5+deb12u1 amd64
+python3.11.2: libboost-all-d
 gtest: libgtest-dev/stable,now 1.12.1-0.2 amd64
 cmake: cmake version 3.25.1
 
