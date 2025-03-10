@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 # 设置项目名称和语言
-project(myobject LANGUAGES C)
+project(parent LANGUAGES C)
 
 # 查找 Python 解释器
 find_package(PythonInterp REQUIRED)
@@ -14,17 +14,18 @@ message(STATUS "Python include dirs: ${PYTHON_INCLUDE_DIRS}")
 include_directories(${PYTHON_INCLUDE_DIRS})
 
 # 创建共享库
-add_library(myobject MODULE myobject.c)
+set(SOURCES parent.c child.c)
+add_library(parent MODULE ${SOURCES})
 
 # 链接 Python 库
 message(STATUS "Python libraries: ${PYTHON_LIBRARIES}")
-target_link_libraries(myobject ${PYTHON_LIBRARIES})
+target_link_libraries(parent ${PYTHON_LIBRARIES})
 
 # 设置库输出目录和名称
-set_target_properties(myobject PROPERTIES
+set_target_properties(parent PROPERTIES
     SUFFIX ".so"  # 对于 Linux/macOS，Windows 上使用 ".pyd"
     PREFIX ""     # 不添加前缀
-    OUTPUT_NAME "myobject"  # 输出文件名
+    OUTPUT_NAME "parent"  # 输出文件名
 )
 
 # 处理 Python 版本
