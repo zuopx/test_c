@@ -1,0 +1,1 @@
+exe test_hello.out : test_hello.cpp ;

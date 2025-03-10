@@ -74,3 +74,8 @@ int main()
     std::printf("Exception: %s\n", e.what());
   }
 }
+
+
+/*
+g++ -g -o echo_server.out echo_server.cpp -std=c++20
+*/

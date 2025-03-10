@@ -115,3 +115,14 @@ int main(int argc, char* argv[])
 
   return 0;
 }
+
+
+/*
+g++ -g -o echo_server.out echo_server.cpp -lboost_system -lboost_context -lboost_coroutine
+
+exe server
+  : echo_server.cpp
+  : <linkflags>-lboost_context
+    <linkflags>-lboost_coroutine
+    <linkflags>-lboost_system
+*/
