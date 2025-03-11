@@ -157,3 +157,20 @@ int main()
   test_deferred();
   test_future();
 }
+
+/*
+编译：
+  project
+    : requirements
+      <library>/usr/lib/x86_64-linux-gnu/libboost_system.a
+      <library>/usr/lib/x86_64-linux-gnu/libboost_chrono.a
+  ;
+  exe composed_1 : composed_1.cpp ;
+  exe composed_2 : composed_2.cpp ;
+  exe composed_3 : composed_3.cpp ;
+  exe composed_4 : composed_4.cpp ;
+  exe composed_5 : composed_5.cpp ;
+  exe composed_6 : composed_6.cpp ;
+  exe composed_7 : composed_7.cpp ;
+  exe composed_8 : composed_8.cpp ;
+*/
