@@ -1,69 +1,110 @@
-#include <stdio.h>
-#include <pthread.h>
-#include <unistd.h>  // for sleep
+#include <iostream>
+#include <mutex>
+#include <stdexcept>
+#include <thread>
+#include <vector>
 
-void *func1(void*)
+// 共享资源
+std::mutex mtx;
+int shared_counter = 0;
+
+// 基础线程函数
+void thread_task(int *id)
 {
-    int i;
-    for (i = 0; i < 5; i++)
-    {
-        printf("func1 is running %d \n", i);
-        sleep(1);
-    }
-    return NULL;
+    std::lock_guard<std::mutex> lock(mtx);
+    std::cout << "Thread " << *id << " started\n";
 }
 
-void *func2(void*)
+// 带异常处理的线程函数
+void risky_task(int x)
 {
-    int i;
-    for (i = 0; i < 5; i++)
+    try
     {
-        printf("func2 is running %d \n", i);
-        sleep(1);
+        if (x % 2 == 0)
+        {
+            throw std::runtime_error("Even number error!");
+        }
+        std::lock_guard<std::mutex> lock(mtx);
+        std::cout << "Processed " << x << std::endl;
     }
-    return NULL;
-}
-
-void *func3(void*)
-{
-    int i;
-    for (i = 0; i < 3; i++)
+    catch (const std::exception &e)
     {
-        printf("func3 is running %d \n", i);
-        sleep(1);
+        std::cerr << "Error in thread: " << e.what() << std::endl;
     }
-    return NULL;
 }
 
 int main()
 {
-    int i = 0, ret = 0;
-    pthread_t func1_id, func2_id, func3_id;
+    const int NUM_THREADS = 5;
+    std::vector<std::thread> workers;
 
-    ret = pthread_create(&func1_id, NULL, func1, NULL);
-    if (ret)
+    // 1. 基础线程创建
+    for (int i = 0; i < NUM_THREADS; ++i)
     {
-        printf("Cannot create func1./n");
-        return 1;
-    }
-    ret = pthread_create(&func2_id, NULL, func2, NULL);
-    if (ret)
-    {
-        printf("Cannot create func1./n");
-        return 1;
+        workers.emplace_back(thread_task, &i);
     }
 
-    ret = pthread_create(&func3_id, NULL, func3, NULL);
-    if (ret)
+    // 等待所有线程完成
+    for (auto &t : workers)
     {
-        printf("Cannot create func1./n");
-        return 1;
+        if (t.joinable())
+            t.join();
+    }
+    workers.clear();
+
+    std::cout << "\n--- Advanced Example ---\n";
+
+    // 2. Lambda表达式 + 引用传递
+    auto lambda_task = [](int &count) {
+        for (int i = 0; i < 3; ++i)
+        {
+            std::lock_guard<std::mutex> lock(mtx);
+            ++count;
+            std::cout << "Count: " << count << std::endl;
+        }
+    };
+
+    int lambda_counter = 0;
+    std::thread t1(lambda_task, std::ref(lambda_counter));  // 传递引用参数时必须使用 std::ref
+    std::thread t2(lambda_task, std::ref(lambda_counter));
+
+    t1.join();
+    t2.join();
+    std::cout << "Final count: " << lambda_counter << "\n";
+
+    // 3. 异常处理演示
+    std::vector<std::thread> error_workers;
+    for (int i = 1; i <= 3; ++i)
+    {
+        error_workers.emplace_back(risky_task, i);
     }
 
-    // Wait for func3.
-    pthread_join(func3_id, NULL);
+    for (auto &t : error_workers)
+    {
+        if (t.joinable())
+            t.join();
+    }
 
-    printf("Main thread exists.\n");
+    // 4. 资源竞争演示
+    std::thread race1([] {
+        for (int i = 0; i < 10000; ++i)
+        {
+            std::lock_guard<std::mutex> lock(mtx);
+            ++shared_counter;
+        }
+    });
+
+    std::thread race2([] {
+        for (int i = 0; i < 10000; ++i)
+        {
+            std::lock_guard<std::mutex> lock(mtx);
+            ++shared_counter;
+        }
+    });
+
+    race1.join();
+    race2.join();
+    std::cout << "\nSafe counter: " << shared_counter << std::endl;
 
     return 0;
 }
