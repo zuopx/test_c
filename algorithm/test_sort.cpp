@@ -22,7 +22,7 @@ template <typename T> class Sort
     }
 };
 
-// 冒泡排序
+// 冒泡排序：最大的数，像泡泡一样浮上水面
 template <typename T> class BubbleSort : public Sort<T>
 {
   public:
@@ -43,7 +43,7 @@ template <typename T> class BubbleSort : public Sort<T>
     }
 };
 
-// 选择排序
+// 选择排序：经过层层比较，得到最小的数
 template <typename T> class SelectSort : public Sort<T>
 {
   public:
@@ -66,7 +66,7 @@ template <typename T> class SelectSort : public Sort<T>
     }
 };
 
-// 插入排序
+// 插入排序：先让前n个数有序，再考虑第n+1个数
 template <typename T> class InsertSort : public Sort<T>
 {
   public:
@@ -92,7 +92,7 @@ template <typename T> class InsertSort : public Sort<T>
     }
 };
 
-// 合并排序
+// 归并排序：先让局部有序，再合并
 template <typename T> class MergeSort : public Sort<T>
 {
   public:
@@ -139,7 +139,7 @@ template <typename T> class MergeSort : public Sort<T>
     }
 };
 
-// 快速排序
+// 快速排序：选择一个支点v，把数据分为小于v和大于v到两部分
 template <typename T> class QuickSort : public Sort<T>
 {
   public:
@@ -165,8 +165,8 @@ template <typename T> class QuickSort : public Sort<T>
     {
         int povit = nums[start]; // 选择支点后，把支点置换到start位置
 
-        int i = start + 1;
-        int j = start + 1; // 把小于povit的数置换到j之前，j永远表示下一个待检查的数或大于povit的数
+        int i = start + 1;  // 双指针：i遍历数组；每有一个数小于povit，j往后移动一位
+        int j = start + 1; // 把小于povit的数置换到j之前，nums[j]大于povit或j==i
         while (i < end)
         {
             if (nums[i] < povit)
@@ -188,7 +188,7 @@ template <typename T> class QuickSort : public Sort<T>
     }
 };
 
-// 堆排序
+// 堆排序：堆（特殊二叉树），可用数组表示；把数组构造为堆，然后依次弹出第一个数（堆顶）
 template <typename T> class HeapSort : public Sort<T>
 {
   public:
@@ -226,16 +226,9 @@ template <typename T> class HeapSort : public Sort<T>
             heapify(nums, len, largest);
         }
     }
-
-    void swap(vector<T> &nums, int i, int j)
-    {
-        T tmp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = tmp;
-    }
 };
 
-// 计数排序
+// 计数排序：每个桶只存储单一键值；大大缩短待排序数组长度
 template <typename T> class CountSort : public Sort<T>
 {
   public:
@@ -244,7 +237,7 @@ template <typename T> class CountSort : public Sort<T>
     }
 };
 
-// 桶排序
+// 桶排序：每个桶存储一定范围的数值；在计数排序到基础上，额外进行一次内部排序
 template <typename T> class BucketSort : public Sort<T>
 {
   public:
@@ -253,7 +246,7 @@ template <typename T> class BucketSort : public Sort<T>
     }
 };
 
-// 基数排序
+// 基数排序：根据键值的每位数字来分配桶；
 template <typename T> class RadixSort : public Sort<T>
 {
   public:
@@ -284,7 +277,7 @@ int main(int argc, char const *argv[])
     {
         vector<int> vec(dist(gen));
 
-        iota(vec.begin(), vec.end(), 1);
+        iota(vec.begin(), vec.end(), 1);  // Create a range of sequentially increasing values.
         shuffle(vec.begin(), vec.end(), mt19937(random_device()()));
         s->sort(vec);
         if (!is_sorted(vec.begin(), vec.end()))
@@ -302,7 +295,7 @@ int main(int argc, char const *argv[])
 /*
 以上排序可分为四类：
 暴力类：冒泡排序、选择排序、插入排序
-分值类：归并排序、快速排序
+分治类：归并排序、快速排序
 数据结构类：堆排序
 桶类：计数排序、桶排序、基数排序
 
