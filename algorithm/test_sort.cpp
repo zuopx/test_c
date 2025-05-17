@@ -165,7 +165,7 @@ template <typename T> class QuickSort : public Sort<T>
     {
         int povit = nums[start]; // 选择支点后，把支点置换到start位置
 
-        int i = start + 1;  // 双指针：i遍历数组；每有一个数小于povit，j往后移动一位
+        int i = start + 1; // 双指针：i遍历数组；每有一个数小于povit，j往后移动一位
         int j = start + 1; // 把小于povit的数置换到j之前，nums[j]大于povit或j==i
         while (i < end)
         {
@@ -277,7 +277,7 @@ int main(int argc, char const *argv[])
     {
         vector<int> vec(dist(gen));
 
-        iota(vec.begin(), vec.end(), 1);  // Create a range of sequentially increasing values.
+        iota(vec.begin(), vec.end(), 1); // Create a range of sequentially increasing values.
         shuffle(vec.begin(), vec.end(), mt19937(random_device()()));
         s->sort(vec);
         if (!is_sorted(vec.begin(), vec.end()))
@@ -290,7 +290,6 @@ int main(int argc, char const *argv[])
     cout << "done!" << endl;
     return 0;
 }
-
 
 /*
 以上排序可分为四类：

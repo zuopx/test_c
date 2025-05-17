@@ -2,15 +2,15 @@
 #include <iostream>
 #include <vector>
 
-void print(const int &value)
+template <typename T> void print(std::ostream &os, const T &value)
 {
-    std::cout << value << ",";
+    os << value << ",";
 }
 
 template <typename T> std::ostream &operator<<(std::ostream &os, const std::vector<T> &vec)
 {
     os << "[";
-    std::for_each(vec.begin(), vec.end(), std::cref(print));
+    std::for_each(vec.begin(), vec.end(), [&os](T value){print<T>(os, value);});
     os << "]";
     return os;
 }
