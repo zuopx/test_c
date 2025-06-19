@@ -24,9 +24,7 @@ static int MyObject_setattro(MyObject *self, PyObject *name, PyObject *value)
             PyErr_SetString(PyExc_TypeError, "The 'value' attribute must be an integer");
             return -1;
         }
-        int *p = NULL;
-        self->value = *p;
-        // self->value = PyLong_AsLong(value);
+        self->value = PyLong_AsLong(value);
         return 0;
     }
     PyErr_SetString(PyExc_AttributeError, "Attribute not found");

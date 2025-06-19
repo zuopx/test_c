@@ -5,7 +5,7 @@ c,c++
 ##  dependency
 
 boost_1_81_0: libboost1.81-all-dev/stable,now 1.81.0-5+deb12u1 amd64
-python3.11.2: libboost-all-d
+python3.11.2: libpython3.11-dbg/stable,now 3.11.2-6+deb12u5 amd64
 gtest: libgtest-dev/stable,now 1.12.1-0.2 amd64
 cmake: cmake version 3.25.1
 
