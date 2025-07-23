@@ -20,7 +20,7 @@
     /usr/lib/x86_64-linux-gnu/libgtest_main.a
 
 编译并链接(gcc version 12.2.0 (Debian 12.2.0-14))
-    g++ -o test_hello.out test_hello.cpp -L/usr/lib/x86_64-linux-gnu -lgtest -lgtest_main
+    g++ -o test_hello.out test_hello.cpp -lgtest -lgtest_main
 
 运行
     ~/project/c/test_c#./test_hello.out

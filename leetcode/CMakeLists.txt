@@ -11,6 +11,7 @@ foreach(src ${src_list})
     string(REPLACE ".cpp" ".out" exe ${src})
     message(STATUS ${src} " ==> " ${exe})
     add_executable(${exe} ${src})
+    target_link_libraries(${exe} gtest gtest_main)
 endforeach()
 
 # message(STATUS ${PROJECT_SOURCE_DIR})

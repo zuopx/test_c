@@ -25,14 +25,15 @@ target  的那 两个 整数，并返回它们的数组下标。
 只会存在一个有效答案
 */
 
-#include <iostream>
 #include <unordered_map>
 #include <vector>
+#include <gtest/gtest.h>
 using namespace std;
 
 class Solution
 {
-  public:
+public:
+    // 暴力求解
     vector<int> twoSum1(vector<int> &nums, int target)
     {
         int i, j;
@@ -50,33 +51,70 @@ class Solution
         return vector<int>{-1, -1};
     }
 
+    // 使用哈希表
     vector<int> twoSum(vector<int> &nums, int target)
     {
         unordered_map<int, int> m;
         int i, j;
         for (i = 0; i < nums.size(); i++)
         {
-            if (m.find(nums[i]) != m.end())
+            if (m.find(target - nums[i]) != m.end())
             {
-                return vector<int>{m[nums[i]], i};
+                return vector<int>{m[target - nums[i]], i};
             }
-            m[target - nums[i]] = i;
+            m[nums[i]] = i;
         }
 
         return vector<int>{-1, -1};
     }
 };
 
-int main()
+// 测试用例
+TEST(TwoSumTest, BasicTest)
 {
-    auto nums = vector<int>{3, 3};
-    auto target = 6;
-    auto v = Solution().twoSum(nums, target);
+    vector<int> nums = {2, 7, 11, 15};
+    vector<int> expected = {0, 1};
+    EXPECT_EQ(Solution().twoSum(nums, 9), expected);
+}
 
-    for (auto i : v)
-    {
-        cout << i << endl;
-    }
+TEST(TwoSumTest, MiddleMatch)
+{
+    vector<int> nums = {3, 2, 4};
+    vector<int> expected = {1, 2};
+    EXPECT_EQ(Solution().twoSum(nums, 6), expected);
+}
 
-    return 0;
+TEST(TwoSumTest, DuplicateNumbers)
+{
+    vector<int> nums = {3, 3};
+    vector<int> expected = {0, 1};
+    EXPECT_EQ(Solution().twoSum(nums, 6), expected);
+}
+
+TEST(TwoSumTest, NoSolution)
+{
+    vector<int> nums = {1, 5, 3};
+    vector<int> expected = {-1, -1};
+    EXPECT_EQ(Solution().twoSum(nums, 10), expected);
+}
+
+TEST(TwoSumTest, NegativeNumbers)
+{
+    vector<int> nums = {-1, -2, 3};
+    vector<int> expected = {1, 2};
+    EXPECT_EQ(Solution().twoSum(nums, 1), expected);
+}
+
+TEST(TwoSumTest, SingleElement)
+{
+    vector<int> nums = {5};
+    vector<int> expected = {-1, -1};
+    EXPECT_EQ(Solution().twoSum(nums, 10), expected);
+}
+
+TEST(TwoSumTest, MultipleSolutions)
+{
+    vector<int> nums = {2, 5, 5, 11};
+    vector<int> expected = {1, 2};
+    EXPECT_EQ(Solution().twoSum(nums, 10), expected);
 }
