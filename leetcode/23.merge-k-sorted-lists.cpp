@@ -2,31 +2,17 @@
 
 https://leetcode.cn/problems/merge-k-sorted-lists/?envType=study-plan-v2&envId=top-100-liked
 */
-
 #include <algorithm>
-#include <iostream>
-#include <limits>
 #include <vector>
+#include "mystl/list.h"
+#include <gtest/gtest.h>
 using namespace std;
 
-struct ListNode
-{
-    int val;
-    ListNode *next;
-    ListNode() : val(0), next(nullptr)
-    {
-    }
-    ListNode(int x) : val(x), next(nullptr)
-    {
-    }
-    ListNode(int x, ListNode *next) : val(x), next(next)
-    {
-    }
-};
+using ListNode = my::ListNode<int>;
 
 class Solution
 {
-  public:
+public:
     ListNode *mergeKLists(vector<ListNode *> &lists)
     {
         vector<int> v;
@@ -69,8 +55,53 @@ class Solution
     }
 };
 
-int main()
+ListNode *mergeKLists(vector<ListNode *> &lists)
 {
-    cout << "done!" << endl;
-    return 0;
+    return Solution().mergeKLists(lists);
+}
+
+// Unit Tests
+TEST(MergeKListsTest, EmptyInput)
+{
+    vector<ListNode *> lists;
+    ListNode *result = mergeKLists(lists);
+    EXPECT_EQ(result, nullptr);
+}
+
+TEST(MergeKListsTest, SingleList)
+{
+    vector<int> list1 = {1, 4, 5};
+    vector<ListNode *> lists = {my::createList<int>(list1)};
+    ListNode *result = mergeKLists(lists);
+    EXPECT_TRUE(listsEqual(result, my::createList<int>(list1)));
+}
+
+TEST(MergeKListsTest, MultipleLists)
+{
+    vector<int> l1 = {1, 4, 5};
+    vector<int> l2 = {1, 3, 4};
+    vector<int> l3 = {2, 6};
+    vector<ListNode *> lists = {my::createList<int>(l1), my::createList<int>(l2), my::createList<int>(l3)};
+    ListNode *result = mergeKLists(lists);
+
+    vector<int> expected = {1, 1, 2, 3, 4, 4, 5, 6};
+    ListNode *expectedList = my::createList<int>(expected);
+    EXPECT_TRUE(listsEqual(result, expectedList));
+}
+
+TEST(MergeKListsTest, ListsWithNullptr)
+{
+    vector<ListNode *> lists = {nullptr, my::createList<int>({1, 2, 3}), nullptr};
+    ListNode *result = mergeKLists(lists);
+
+    vector<int> expected = {1, 2, 3};
+    ListNode *expectedList = my::createList<int>(expected);
+    EXPECT_TRUE(listsEqual(result, expectedList));
+}
+
+TEST(MergeKListsTest, AllNullptr)
+{
+    vector<ListNode *> lists = {nullptr, nullptr};
+    ListNode *result = mergeKLists(lists);
+    EXPECT_EQ(result, nullptr);
 }

@@ -1,112 +1,48 @@
 /*三数之和
 
 https://leetcode.cn/problems/3sum/?envType=study-plan-v2&envId=top-100-liked
+
+先排序，在利用数组的有序特性进行双指针遍历，一个从头开始，一个从末尾开始；在遍历过程中跳过重复值。
 */
 
 #include <algorithm>
-#include <array>
-#include <iostream>
-#include <unordered_map>
-#include <unordered_set>
 #include <vector>
+#include <unordered_set>
+#include <gtest/gtest.h>
 using namespace std;
 
 class Solution
 {
-  public:
-    vector<vector<int>> threeSum1(vector<int> &nums)
-    {
-        vector<vector<int>> r;
-
-        sort(nums.begin(), nums.end());
-        unordered_map<int, vector<array<int, 2>>> m;
-        for (int i = 0; i < nums.size(); i++)
-        {
-            for (int j = i + 1; j < nums.size(); j++)
-            {
-                m[nums[i] + nums[j]].emplace_back(array<int, 2>{i, j});
-            }
-        }
-
-        for (auto &p : m)
-        {
-            cout << p.first << ":\t";
-            for (auto &a : p.second)
-            {
-                cout << "(" << a[0] << "," << a[1] << ")"
-                     << ",";
-            }
-            cout << endl;
-        }
-
-        unordered_set<int> set1;
-        for (int i = 0; i < nums.size(); i++)
-        {
-            int num = nums[i];
-
-            if (set1.count(num))
-            {
-                continue;
-            }
-            set1.insert(num);
-
-            if (m.find(-num) != m.end())
-            {
-                unordered_set<int> set2;
-                for (auto &a : m[-num])
-                {
-                    if (set2.count(nums[a[0]]) or i >= a[0])
-                    {
-                        continue;
-                    }
-                    set2.insert(nums[a[0]]);
-                    cout << "(" << i << "," << a[0] << "," << a[1] << ")"
-                         << ":";
-                    cout << "(" << num << "," << nums[a[0]] << "," << nums[a[1]] << ")" << endl;
-                    r.emplace_back(vector<int>{num, nums[a[0]], nums[a[1]]});
-                }
-            }
-        }
-
-        return r;
-    }
-
+public:
     vector<vector<int>> threeSum(vector<int> &nums)
     {
         vector<vector<int>> r;
 
         sort(nums.begin(), nums.end());
 
-        unordered_set<int> set1, set2;
+        int *pi, *pj; // 跳过重复值
         for (int i = 0; i < nums.size(); ++i)
         {
-            if (set1.count(nums[i]))
+            if (pi && *pi == nums[i])
                 continue;
-            set1.insert(nums[i]);
+            pi = &nums[i];
 
             int j = i + 1, k = nums.size() - 1;
-            set2.clear();
             while (j < k)
             {
                 int sum = nums[i] + nums[j] + nums[k];
                 if (sum == 0)
                 {
-                    // cout << "(" << nums[i] << "," << nums[j] << "," << nums[k] << ")"
-                    // << endl;
                     r.emplace_back(vector<int>{nums[i], nums[j], nums[k]});
-                    set2.insert(nums[j]);
-                    while (set2.count(nums[j]) && j < k)
+
+                    pj = &nums[j];
+                    if (*pj == nums[j] && j < k)
                         ++j;
                     --k;
                 }
-                else if (sum < 0)
-                {
-                    ++j;
-                }
-                else
-                {
-                    --k;
-                }
+
+                j = sum < 0 ? j + 1 : j;
+                k = sum > 0 ? k - 1 : k;
             }
         }
 
@@ -114,23 +50,61 @@ class Solution
     }
 };
 
-int main()
+// 被测函数
+vector<vector<int>> threeSum(vector<int> &nums)
 {
-    // vector<int> nums{-1, -1, 0, 0, 0, 1, 1, 2, -1, -4};
-    // vector<int> nums{-1, 0, 1, 2, -1, -4};
-    vector<int> nums{0, 0, 0, 0};
+    return Solution().threeSum(nums);
+}
 
-    auto r = Solution().threeSum(nums);
+// Helper function to normalize a triplet vector
+vector<vector<int>> normalize(const vector<vector<int>> &v)
+{
+    vector<vector<int>> res = v;
+    for (auto &triplet : res)
+        sort(triplet.begin(), triplet.end());
+    sort(res.begin(), res.end());
+    return res;
+}
 
-    for (auto &v : r)
-    {
-        for (auto &i : v)
-        {
-            cout << i << ",";
-        }
-        cout << endl;
-    }
+// Test cases using standard GTest assertions
+TEST(ThreeSumTest, StandardCase)
+{
+    vector<int> nums = {-1, 0, 1, 2, -1, -4};
+    vector<vector<int>> expected = {{-1, -1, 2}, {-1, 0, 1}};
+    EXPECT_EQ(normalize(threeSum(nums)), normalize(expected));
+}
 
-    cout << "done!" << endl;
-    return 0;
+TEST(ThreeSumTest, AllZeros)
+{
+    vector<int> nums = {0, 0, 0};
+    vector<vector<int>> expected = {{0, 0, 0}};
+    EXPECT_EQ(normalize(threeSum(nums)), normalize(expected));
+}
+
+TEST(ThreeSumTest, ExtraZeros)
+{
+    vector<int> nums = {0, 0, 0, 0};
+    vector<vector<int>> expected = {{0, 0, 0}};
+    EXPECT_EQ(normalize(threeSum(nums)), normalize(expected));
+}
+
+TEST(ThreeSumTest, EmptyInput)
+{
+    vector<int> nums = {};
+    vector<vector<int>> expected = {};
+    EXPECT_EQ(normalize(threeSum(nums)), normalize(expected));
+}
+
+TEST(ThreeSumTest, NoSolution)
+{
+    vector<int> nums = {1, 2, 3};
+    vector<vector<int>> expected = {};
+    EXPECT_EQ(normalize(threeSum(nums)), normalize(expected));
+}
+
+TEST(ThreeSumTest, MixedNumbers)
+{
+    vector<int> nums = {-2, 0, 1, 1, 2};
+    vector<vector<int>> expected = {{-2, 0, 2}, {-2, 1, 1}};
+    EXPECT_EQ(normalize(threeSum(nums)), normalize(expected));
 }

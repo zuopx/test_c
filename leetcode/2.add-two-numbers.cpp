@@ -9,7 +9,7 @@ https://leetcode.cn/problems/add-two-numbers/description/?envType=study-plan-v2&
 #include <gtest/gtest.h>
 #include "mystl/list.h"
 
-using ListNode = MyListNode<int>;
+using ListNode = my::ListNode<int>;
 
 class Solution
 {
@@ -110,9 +110,9 @@ public:
 // listsEqual和deleteList 传入的是已经明确是 ListNode* 类型的指针，所以编译器已经知道它们操作的是 int 类型的链表节点，不需要再指定类型。
 TEST(AddTwoNumbersTest, TC01_NoCarry)
 {
-    ListNode *l1 = createList<int>({2, 4, 3});
-    ListNode *l2 = createList<int>({5, 6, 4});
-    ListNode *expected = createList<int>({7, 0, 8});
+    ListNode *l1 = my::createList<int>({2, 4, 3});
+    ListNode *l2 = my::createList<int>({5, 6, 4});
+    ListNode *expected = my::createList<int>({7, 0, 8});
     ListNode *result = Solution().addTwoNumbers1(l1, l2);
     EXPECT_TRUE(listsEqual(result, expected));
     deleteList(l1);
@@ -123,9 +123,9 @@ TEST(AddTwoNumbersTest, TC01_NoCarry)
 
 TEST(AddTwoNumbersTest, TC02_WithCarry)
 {
-    ListNode *l1 = createList<int>({9, 9, 9});
-    ListNode *l2 = createList<int>({9, 9, 9, 9});
-    ListNode *expected = createList<int>({8, 9, 9, 0, 1});
+    ListNode *l1 = my::createList<int>({9, 9, 9});
+    ListNode *l2 = my::createList<int>({9, 9, 9, 9});
+    ListNode *expected = my::createList<int>({8, 9, 9, 0, 1});
     ListNode *result = Solution().addTwoNumbers1(l1, l2);
     EXPECT_TRUE(listsEqual(result, expected));
     deleteList(l1);
@@ -137,8 +137,8 @@ TEST(AddTwoNumbersTest, TC02_WithCarry)
 TEST(AddTwoNumbersTest, TC03_OneEmptyList)
 {
     ListNode *l1 = nullptr;
-    ListNode *l2 = createList<int>({0});
-    ListNode *expected = createList<int>({0});
+    ListNode *l2 = my::createList<int>({0});
+    ListNode *expected = my::createList<int>({0});
     ListNode *result = Solution().addTwoNumbers1(l1, l2);
     EXPECT_TRUE(listsEqual(result, expected));
     deleteList(l2);
@@ -148,9 +148,9 @@ TEST(AddTwoNumbersTest, TC03_OneEmptyList)
 
 TEST(AddTwoNumbersTest, TC04_CarryInMiddle)
 {
-    ListNode *l1 = createList<int>({9, 8});
-    ListNode *l2 = createList<int>({2});
-    ListNode *expected = createList<int>({1, 9});
+    ListNode *l1 = my::createList<int>({9, 8});
+    ListNode *l2 = my::createList<int>({2});
+    ListNode *expected = my::createList<int>({1, 9});
     ListNode *result = Solution().addTwoNumbers1(l1, l2);
     EXPECT_TRUE(listsEqual(result, expected));
     deleteList(l1);
@@ -163,7 +163,7 @@ TEST(AddTwoNumbersTest, TC05_BothEmpty)
 {
     ListNode *l1 = nullptr;
     ListNode *l2 = nullptr;
-    ListNode *expected = createList<int>({});
+    ListNode *expected = my::createList<int>({});
     ListNode *result = Solution().addTwoNumbers1(l1, l2);
     EXPECT_TRUE(listsEqual(result, expected));
     deleteList(expected);
@@ -172,9 +172,9 @@ TEST(AddTwoNumbersTest, TC05_BothEmpty)
 
 TEST(AddTwoNumbersTest, TC06_DifferentLengthWithCarry)
 {
-    ListNode *l1 = createList<int>({1});
-    ListNode *l2 = createList<int>({9, 9});
-    ListNode *expected = createList<int>({0, 0, 1});
+    ListNode *l1 = my::createList<int>({1});
+    ListNode *l2 = my::createList<int>({9, 9});
+    ListNode *expected = my::createList<int>({0, 0, 1});
     ListNode *result = Solution().addTwoNumbers1(l1, l2);
     EXPECT_TRUE(listsEqual(result, expected));
     deleteList(l1);

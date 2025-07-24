@@ -20,6 +20,7 @@ https://leetcode.cn/problems/longest-substring-without-repeating-characters/desc
 #include <iostream>
 #include <unordered_map>
 #include <vector>
+#include <unordered_set>
 using namespace std;
 
 class Solution
@@ -39,10 +40,8 @@ public:
                 {
                     x = i;
                     y = j;
-                    // cout << x << "," << y << endl;
                 }
                 i = m[s[j]] + 1;
-                // cout << i << endl;
             }
             m[s[j]] = j;
             ++j;
@@ -51,10 +50,30 @@ public:
         {
             x = i;
             y = j;
-            // cout << x << "," << y << endl;
         }
 
         return y - x;
+    }
+
+    // 滑动窗口模板法，外侧循环控制滑动窗口的右指针，内层循环控制滑动窗口的左指针
+    int lengthOfLongestSubstring1(string s)
+    {
+        int ret = 0;
+
+        unordered_set<char> m;
+        for (int l = 0, r = 0; r < s.size(); r++)
+        {
+            while (l <= r && m.find(s[r]) != m.end())
+            {
+                m.erase(s[l]);
+                l++;
+            }
+            m.insert(s[r]);
+
+            ret = max(ret, r - l + 1);
+        }
+
+        return ret;
     }
 };
 
@@ -62,7 +81,7 @@ public:
 #include "gtest/gtest.h"
 #include "gtest/gtest-spi.h"
 
-class SolutionTest : public testing::Test
+class SolutionTest : public ::testing::Test //  这是一个绝对作用域（absolute scope）引用，可以避免由于命名冲突而导致的潜在问题。
 {
 protected:
     Solution sol;
@@ -71,48 +90,48 @@ protected:
 TEST_F(SolutionTest, Test1)
 {
     string s = "abcabcbb";
-    int ret = sol.lengthOfLongestSubstring(s);
+    int ret = sol.lengthOfLongestSubstring1(s);
     EXPECT_EQ(ret, 3);
 }
 
 TEST_F(SolutionTest, Test2)
 {
     string s = "bbbbb";
-    int ret = sol.lengthOfLongestSubstring(s);
+    int ret = sol.lengthOfLongestSubstring1(s);
     EXPECT_EQ(ret, 1);
 }
 
 TEST_F(SolutionTest, Test3)
 {
     string s = "pwwkew";
-    int ret = sol.lengthOfLongestSubstring(s);
+    int ret = sol.lengthOfLongestSubstring1(s);
     EXPECT_EQ(ret, 3);
 }
 
 TEST_F(SolutionTest, Test4)
 {
     string s = " ";
-    int ret = sol.lengthOfLongestSubstring(s);
+    int ret = sol.lengthOfLongestSubstring1(s);
     EXPECT_EQ(ret, 1);
 }
 
 TEST_F(SolutionTest, Test5)
 {
     string s = "au";
-    int ret = sol.lengthOfLongestSubstring(s);
+    int ret = sol.lengthOfLongestSubstring1(s);
     EXPECT_EQ(ret, 2);
 }
 
 TEST_F(SolutionTest, Test6)
 {
     string s = "dvdf";
-    int ret = sol.lengthOfLongestSubstring(s);
+    int ret = sol.lengthOfLongestSubstring1(s);
     EXPECT_EQ(ret, 3);
 }
 
 TEST_F(SolutionTest, Test7)
 {
     string s = "abcdabcdabcd";
-    int ret = sol.lengthOfLongestSubstring(s);
+    int ret = sol.lengthOfLongestSubstring1(s);
     EXPECT_EQ(ret, 4);
 }
