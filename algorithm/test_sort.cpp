@@ -9,9 +9,10 @@
 #include <vector>
 using namespace std;
 
-template <typename T> class Sort
+template <typename T>
+class Sort
 {
-  public:
+public:
     virtual vector<T> sort(vector<T> &nums) = 0; // 纯虚函数
 
     void swap(vector<T> &nums, int i, int j)
@@ -23,9 +24,10 @@ template <typename T> class Sort
 };
 
 // 冒泡排序：最大的数，像泡泡一样浮上水面
-template <typename T> class BubbleSort : public Sort<T>
+template <typename T>
+class BubbleSort : public Sort<T>
 {
-  public:
+public:
     vector<T> sort(vector<T> &nums)
     {
         for (int i = nums.size(); i > 1; --i)
@@ -44,9 +46,10 @@ template <typename T> class BubbleSort : public Sort<T>
 };
 
 // 选择排序：经过层层比较，得到最小的数
-template <typename T> class SelectSort : public Sort<T>
+template <typename T>
+class SelectSort : public Sort<T>
 {
-  public:
+public:
     vector<T> sort(vector<T> &nums)
     {
         for (int i = 0; i < nums.size(); ++i)
@@ -67,9 +70,10 @@ template <typename T> class SelectSort : public Sort<T>
 };
 
 // 插入排序：先让前n个数有序，再考虑第n+1个数
-template <typename T> class InsertSort : public Sort<T>
+template <typename T>
+class InsertSort : public Sort<T>
 {
-  public:
+public:
     vector<T> sort(vector<T> &nums)
     {
         for (int i = 0; i < nums.size(); ++i)
@@ -93,9 +97,10 @@ template <typename T> class InsertSort : public Sort<T>
 };
 
 // 归并排序：先让局部有序，再合并
-template <typename T> class MergeSort : public Sort<T>
+template <typename T>
+class MergeSort : public Sort<T>
 {
-  public:
+public:
     vector<T> sort(vector<T> &nums)
     {
         mergeSort(nums, 0, nums.size());
@@ -140,9 +145,10 @@ template <typename T> class MergeSort : public Sort<T>
 };
 
 // 快速排序：选择一个支点v，把数据分为小于v和大于v到两部分
-template <typename T> class QuickSort : public Sort<T>
+template <typename T>
+class QuickSort : public Sort<T>
 {
-  public:
+public:
     vector<T> sort(vector<T> &nums)
     {
         quickSort(nums, 0, nums.size());
@@ -189,9 +195,10 @@ template <typename T> class QuickSort : public Sort<T>
 };
 
 // 堆排序：堆（特殊二叉树），可用数组表示；把数组构造为堆，然后依次弹出第一个数（堆顶）
-template <typename T> class HeapSort : public Sort<T>
+template <typename T>
+class HeapSort : public Sort<T>
 {
-  public:
+public:
     vector<T> sort(vector<T> &nums)
     {
         for (int i = nums.size() / 2 - 1; i >= 0; --i) // 4 -> 1; 5 -> 1
@@ -229,27 +236,30 @@ template <typename T> class HeapSort : public Sort<T>
 };
 
 // 计数排序：每个桶只存储单一键值；大大缩短待排序数组长度
-template <typename T> class CountSort : public Sort<T>
+template <typename T>
+class CountSort : public Sort<T>
 {
-  public:
+public:
     vector<T> sort(vector<T> &nums)
     {
     }
 };
 
 // 桶排序：每个桶存储一定范围的数值；在计数排序到基础上，额外进行一次内部排序
-template <typename T> class BucketSort : public Sort<T>
+template <typename T>
+class BucketSort : public Sort<T>
 {
-  public:
+public:
     vector<T> sort(vector<T> &nums)
     {
     }
 };
 
 // 基数排序：根据键值的每位数字来分配桶；
-template <typename T> class RadixSort : public Sort<T>
+template <typename T>
+class RadixSort : public Sort<T>
 {
-  public:
+public:
     vector<T> sort(vector<T> &nums)
     {
     }

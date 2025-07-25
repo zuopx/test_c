@@ -5,6 +5,12 @@
 #include "sort.h"
 #include <climits>
 
+template <typename T>
+void quicksort(std::vector<T> &vec)
+{
+    my::quicksort(vec);
+}
+
 // 测试类模板
 template <typename T>
 class QuickSortTest : public ::testing::Test
@@ -42,7 +48,7 @@ TYPED_TEST_SUITE(QuickSortTest, TestTypes);
 TYPED_TEST(QuickSortTest, EmptyArray)
 {
     std::vector<TypeParam> nums;
-    my::quicksort(nums);
+    quicksort(nums);
     EXPECT_TRUE(this->is_sorted(nums));
     EXPECT_TRUE(nums.empty());
 }
@@ -51,7 +57,7 @@ TYPED_TEST(QuickSortTest, EmptyArray)
 TYPED_TEST(QuickSortTest, SingleElement)
 {
     std::vector<TypeParam> nums = {42};
-    my::quicksort(nums);
+    quicksort(nums);
     EXPECT_TRUE(this->is_sorted(nums));
     EXPECT_EQ(nums.size(), 1);
     EXPECT_EQ(nums[0], 42);
@@ -61,7 +67,7 @@ TYPED_TEST(QuickSortTest, SingleElement)
 TYPED_TEST(QuickSortTest, TwoElementsSorted)
 {
     std::vector<TypeParam> nums = {1, 2};
-    my::quicksort(nums);
+    quicksort(nums);
     EXPECT_TRUE(this->is_sorted(nums));
     EXPECT_EQ(nums.size(), 2);
     EXPECT_EQ(nums[0], 1);
@@ -72,7 +78,7 @@ TYPED_TEST(QuickSortTest, TwoElementsSorted)
 TYPED_TEST(QuickSortTest, TwoElementsReversed)
 {
     std::vector<TypeParam> nums = {2, 1};
-    my::quicksort(nums);
+    quicksort(nums);
     EXPECT_TRUE(this->is_sorted(nums));
     EXPECT_EQ(nums.size(), 2);
     EXPECT_EQ(nums[0], 1);
@@ -83,7 +89,7 @@ TYPED_TEST(QuickSortTest, TwoElementsReversed)
 TYPED_TEST(QuickSortTest, AlreadySorted)
 {
     std::vector<TypeParam> nums = {1, 2, 3, 4, 5};
-    my::quicksort(nums);
+    quicksort(nums);
     EXPECT_TRUE(this->is_sorted(nums));
     EXPECT_EQ(nums.size(), 5);
 }
@@ -92,7 +98,7 @@ TYPED_TEST(QuickSortTest, AlreadySorted)
 TYPED_TEST(QuickSortTest, ReverseSorted)
 {
     std::vector<TypeParam> nums = {5, 4, 3, 2, 1};
-    my::quicksort(nums);
+    quicksort(nums);
     EXPECT_TRUE(this->is_sorted(nums));
     EXPECT_EQ(nums[0], 1);
     EXPECT_EQ(nums[4], 5);
@@ -105,7 +111,7 @@ TYPED_TEST(QuickSortTest, RandomArray)
     std::vector<TypeParam> expected = nums;
     std::sort(expected.begin(), expected.end());
 
-    my::quicksort(nums);
+    quicksort(nums);
     EXPECT_TRUE(this->is_sorted(nums));
     EXPECT_EQ(nums, expected);
 }
@@ -114,7 +120,7 @@ TYPED_TEST(QuickSortTest, RandomArray)
 TYPED_TEST(QuickSortTest, DuplicateElements)
 {
     std::vector<TypeParam> nums = {3, 1, 3, 1, 3, 1};
-    my::quicksort(nums);
+    quicksort(nums);
     EXPECT_TRUE(this->is_sorted(nums));
     EXPECT_EQ(nums.size(), 6);
 }
@@ -123,7 +129,7 @@ TYPED_TEST(QuickSortTest, DuplicateElements)
 TYPED_TEST(QuickSortTest, AllSameElements)
 {
     std::vector<TypeParam> nums = {5, 5, 5, 5, 5};
-    my::quicksort(nums);
+    quicksort(nums);
     EXPECT_TRUE(this->is_sorted(nums));
     EXPECT_EQ(nums.size(), 5);
     for (const auto &elem : nums)
@@ -139,7 +145,7 @@ TYPED_TEST(QuickSortTest, NegativeNumbers)
     std::vector<TypeParam> expected = nums;
     std::sort(expected.begin(), expected.end());
 
-    my::quicksort(nums);
+    quicksort(nums);
     EXPECT_TRUE(this->is_sorted(nums));
     EXPECT_EQ(nums, expected);
 }
@@ -151,7 +157,7 @@ TYPED_TEST(QuickSortTest, MixedPositiveNegative)
     std::vector<TypeParam> expected = nums;
     std::sort(expected.begin(), expected.end());
 
-    my::quicksort(nums);
+    quicksort(nums);
     EXPECT_TRUE(this->is_sorted(nums));
     EXPECT_EQ(nums, expected);
 }
@@ -163,7 +169,7 @@ TYPED_TEST(QuickSortTest, LargeArray)
     std::vector<TypeParam> expected = nums;
     std::sort(expected.begin(), expected.end());
 
-    my::quicksort(nums);
+    quicksort(nums);
     EXPECT_TRUE(this->is_sorted(nums));
     EXPECT_EQ(nums, expected);
 }
@@ -175,7 +181,7 @@ TEST(QuickSortFloatTest, FloatingPointPrecision)
     std::vector<float> expected = nums;
     std::sort(expected.begin(), expected.end());
 
-    my::quicksort(nums);
+    quicksort(nums);
     EXPECT_TRUE(std::is_sorted(nums.begin(), nums.end()));
     EXPECT_EQ(nums, expected);
 }
@@ -187,7 +193,7 @@ TEST(QuickSortDoubleTest, DoublePrecision)
     std::vector<double> expected = nums;
     std::sort(expected.begin(), expected.end());
 
-    my::quicksort(nums);
+    quicksort(nums);
     EXPECT_TRUE(std::is_sorted(nums.begin(), nums.end()));
     EXPECT_EQ(nums, expected);
 }
@@ -197,7 +203,7 @@ TEST(QuickSortStabilityTest, IsNotStable)
 {
     // 使用pair来测试稳定性，第一个元素是排序键，第二个是原始索引
     std::vector<std::pair<int, int>> nums = {{3, 0}, {1, 1}, {3, 2}, {2, 3}, {1, 4}};
-    my::quicksort(nums);
+    quicksort(nums);
 
     // 验证数组已按第一个元素排序
     EXPECT_TRUE(std::is_sorted(nums.begin(), nums.end(),
@@ -214,7 +220,7 @@ TEST(QuickSortBoundaryTest, ExtremeValues)
     std::vector<int> expected = nums;
     std::sort(expected.begin(), expected.end());
 
-    my::quicksort(nums);
+    quicksort(nums);
     EXPECT_TRUE(std::is_sorted(nums.begin(), nums.end()));
     EXPECT_EQ(nums, expected);
 }
