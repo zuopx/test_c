@@ -37,7 +37,9 @@ INSTANTIATE_TEST_SUITE_P(
             [](std::vector<int> &arr)
             { my::quicksort(arr); },
             [](std::vector<int> &arr)
-            { my::insertsort(arr); }),
+            { my::insertsort(arr); },
+            [](std::vector<int> &arr)
+            { my::heapsort(arr); }),
         // Second parameter: test data
         ::testing::Values(
             // Edge cases
