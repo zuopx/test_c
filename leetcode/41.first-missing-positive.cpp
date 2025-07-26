@@ -1,16 +1,25 @@
 /*41. 缺失的第一个正数
 
 https://leetcode.cn/problems/first-missing-positive/description/?envType=study-plan-v2&envId=top-100-liked
+
+最朴素的方法，排序，然后看0以上哪个整数首先缺失，时间复杂度O(nlogn)
+其次，遍历一遍，建立一个哈希表，然后看0以上哪个整数首先缺失，时间复杂度O(n)，空间复杂度O(n)
+
+假设10个正整数，那么范围为1-11
+填入a，如果a大于11，则范围为1-10，把所有大于11的数都排除掉，假设还剩下8个数，
+重复以上步骤，直到找到缺失的数
+
+假设10个正整数，那么范围为1-11
+那么我们尝试把1-11的数都填入数组中，然后从1开始遍历，如果当前数没有被填入，则返回当前数
 */
 
-#include <iostream>
+#include <gtest/gtest.h>
 #include <vector>
-using namespace std;
 
 class Solution
 {
-  public:
-    int firstMissingPositive(vector<int> &nums)
+public:
+    int firstMissingPositive(std::vector<int> &nums)
     {
         int size = nums.size();
         int i = 0;
@@ -19,7 +28,6 @@ class Solution
         while (i < size)
         {
             num = nums[i];
-            // cout << "(" << i << "," << num << "),";
             if (num <= 0 || num > size)
             {
                 ++i;
@@ -34,7 +42,7 @@ class Solution
 
             if (num == nums[num - 1])
             {
-                i++;
+                ++i;
                 continue;
             }
             else
@@ -56,20 +64,87 @@ class Solution
     }
 };
 
-int main()
+int firstMissingPositive(std::vector<int> &nums)
 {
-    vector<vector<int>> v{
-        {1, 2, 0},
-        {3, 4, -1, 1},
-        {7, 8, 9, 11, 12},
-    };
+    return Solution().firstMissingPositive(nums);
+}
 
-    for (auto &nums : v)
-    {
-        cout << nums[0] << "...: ";
-        cout << Solution().firstMissingPositive(nums) << endl;
-    }
+// 测试用例：空数组
+TEST(FirstMissingPositiveTest, EmptyArray)
+{
+    std::vector<int> nums = {};
+    int result = firstMissingPositive(nums);
+    EXPECT_EQ(result, 1);
+}
 
-    cout << "done!" << endl;
-    return 0;
+// 测试用例：全负数数组
+TEST(FirstMissingPositiveTest, AllNegativeNumbers)
+{
+    std::vector<int> nums = {-1, -2, -3};
+    int result = firstMissingPositive(nums);
+    EXPECT_EQ(result, 1);
+}
+
+// 测试用例：连续正整数从1开始
+TEST(FirstMissingPositiveTest, ConsecutivePositiveFromOne)
+{
+    std::vector<int> nums = {1, 2, 3};
+    int result = firstMissingPositive(nums);
+    EXPECT_EQ(result, 4);
+}
+
+// 测试用例：缺失第一个正整数
+TEST(FirstMissingPositiveTest, MissingFirstPositive)
+{
+    std::vector<int> nums = {2, 3, 4};
+    int result = firstMissingPositive(nums);
+    EXPECT_EQ(result, 1);
+}
+
+// 测试用例：中间缺失正整数
+TEST(FirstMissingPositiveTest, MissingMiddlePositive)
+{
+    std::vector<int> nums = {1, 3, 4};
+    int result = firstMissingPositive(nums);
+    EXPECT_EQ(result, 2);
+}
+
+// 测试用例：包含重复元素
+TEST(FirstMissingPositiveTest, WithDuplicateElements)
+{
+    std::vector<int> nums = {1, 1, 2};
+    int result = firstMissingPositive(nums);
+    EXPECT_EQ(result, 3);
+}
+
+// 测试用例：包含0和负数
+TEST(FirstMissingPositiveTest, WithZeroAndNegative)
+{
+    std::vector<int> nums = {0, -1, 1, 2};
+    int result = firstMissingPositive(nums);
+    EXPECT_EQ(result, 3);
+}
+
+// 测试用例：大数值数组
+TEST(FirstMissingPositiveTest, LargeNumbers)
+{
+    std::vector<int> nums = {7, 8, 9, 11, 12};
+    int result = firstMissingPositive(nums);
+    EXPECT_EQ(result, 1);
+}
+
+// 测试用例：单个元素为1
+TEST(FirstMissingPositiveTest, SingleElementOne)
+{
+    std::vector<int> nums = {1};
+    int result = firstMissingPositive(nums);
+    EXPECT_EQ(result, 2);
+}
+
+// 测试用例：单个元素不为1
+TEST(FirstMissingPositiveTest, SingleElementNotOne)
+{
+    std::vector<int> nums = {2};
+    int result = firstMissingPositive(nums);
+    EXPECT_EQ(result, 1);
 }
