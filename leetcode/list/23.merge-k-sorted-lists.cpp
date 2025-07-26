@@ -4,7 +4,7 @@ https://leetcode.cn/problems/merge-k-sorted-lists/?envType=study-plan-v2&envId=t
 */
 #include <algorithm>
 #include <vector>
-#include "mystl/list.h"
+#include "../mystl/list.h"
 #include <gtest/gtest.h>
 using namespace std;
 
@@ -15,43 +15,47 @@ class Solution
 public:
     ListNode *mergeKLists(vector<ListNode *> &lists)
     {
-        vector<int> v;
-
-        ListNode *left = nullptr, *right = nullptr;
-
-        for (auto &head : lists)
+        if (lists.empty())
         {
-            if (head && !left)
-            {
-                left = head;
-            }
-            if (head && right)
-            {
-                right->next = head;
-            }
+            return nullptr;
+        }
 
-            while (head)
+        auto mergeTwoLists = [](ListNode *l1, ListNode *l2) -> ListNode *
+        {
+            ListNode *dummy = new ListNode(-1);
+            ListNode *cur = dummy;
+            while (l1 && l2)
             {
-                v.push_back(head->val);
-
-                if (!head->next)
+                if (l1->val < l2->val)
                 {
-                    right = head;
+                    cur->next = l1;
+                    l1 = l1->next;
                 }
-                head = head->next;
+                else
+                {
+                    cur->next = l2;
+                    l2 = l2->next;
+                }
+                cur = cur->next;
             }
-        }
+            cur->next = l1 ? l1 : l2;
+            return dummy->next;
+        };
 
-        sort(v.begin(), v.end());
-
-        ListNode *head = left;
-        for (auto &val : v)
+        // 每次合并列表末尾的两个链表
+        // 得到的新链表插入列表开头
+        // 直到列表中只剩下一个链表
+        // 时间复杂度为 O(nlogk)，k 为链表个数，n为列表中链表的总长度
+        while (lists.size() > 1)
         {
-            left->val = val;
-            left = left->next;
+            auto list1 = lists.back();
+            lists.pop_back();
+            auto list2 = lists.back();
+            lists.pop_back();
+            lists.insert(lists.begin(), mergeTwoLists(list1, list2));
         }
 
-        return head;
+        return lists[0];
     }
 };
 

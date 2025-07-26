@@ -4,7 +4,7 @@ https://leetcode.cn/problems/remove-nth-node-from-end-of-list/description/?envTy
 */
 
 #include <gtest/gtest.h>
-#include "mystl/list.h"
+#include "../mystl/list.h"
 using namespace std;
 
 using ListNode = my::ListNode<int>;

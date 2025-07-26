@@ -2,7 +2,7 @@
 
 https://leetcode.cn/problems/merge-two-sorted-lists/description/?envType=study-plan-v2&envId=top-100-liked
 */
-#include "mystl/list.h"
+#include "../mystl/list.h"
 #include <gtest/gtest.h>
 
 using ListNode = my::ListNode<int>;
@@ -12,68 +12,31 @@ class Solution
 public:
     ListNode *mergeTwoLists(ListNode *list1, ListNode *list2)
     {
-        ListNode *head = new ListNode{0, list1};
-        ListNode *parent = head;
-
+        ListNode *dummy = new ListNode(-1);
+        ListNode *cur = dummy;
         while (list1 && list2)
         {
-            if (list1->val <= list2->val)
+            if (list1->val < list2->val)
             {
-                parent = list1;
+                cur->next = list1;
                 list1 = list1->next;
             }
             else
             {
-                parent->next = list2;
-                parent = list2;
+                cur->next = list2;
                 list2 = list2->next;
-                parent->next = list1;
             }
+            cur = cur->next;
         }
-        if (list2)
-        {
-            parent->next = list2;
-        }
-        return head->next;
-    }
+        cur->next = list1 ? list1 : list2;
 
-    ListNode *mergeTwoLists1(ListNode *list1, ListNode *list2)
-    {
-        ListNode *head = new ListNode{0};
-        ListNode *tail = head;
-
-        while (list1 || list2)
-        {
-            if (list1 && list2)
-            {
-                if (list1->val <= list2->val)
-                {
-                    tail->next = list1;
-                    list1 = list1->next;
-                }
-                else
-                {
-                    tail->next = list2;
-                    list2 = list2->next;
-                }
-            }
-            else
-            {
-                tail->next = list1 ? list1 : list2;
-                list1 = list1 ? list1->next : list1;
-                list2 = list2 ? list2->next : list2;
-            }
-
-            tail = tail->next;
-        }
-
-        return head->next;
+        return dummy->next;
     }
 };
 
 ListNode *mergeTwoLists(ListNode *list1, ListNode *list2)
 {
-    return Solution().mergeTwoLists1(list1, list2);
+    return Solution().mergeTwoLists(list1, list2);
 }
 
 // 单元测试
