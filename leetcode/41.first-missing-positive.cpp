@@ -11,6 +11,8 @@ https://leetcode.cn/problems/first-missing-positive/description/?envType=study-p
 
 假设10个正整数，那么范围为1-11
 那么我们尝试把1-11的数都填入数组中，然后从1开始遍历，如果当前数没有被填入，则返回当前数
+
+原地哈希，利用数组来做哈希表，数组的索引就是天然的键，数组的值就是对应的值，这样就可以省去存储空间了
 */
 
 #include <gtest/gtest.h>
@@ -22,34 +24,15 @@ public:
     int firstMissingPositive(std::vector<int> &nums)
     {
         int size = nums.size();
-        int i = 0;
-        int num = 0;
-        int tmp = 0;
-        while (i < size)
+
+        for (int i = 0; i < size; i++)
         {
-            num = nums[i];
-            if (num <= 0 || num > size)
+            while (nums[i] != i + 1)
             {
-                ++i;
-                continue;
-            }
+                if (nums[i] <= 0 || nums[i] > size || nums[i] == nums[nums[i] - 1])
+                    break;
 
-            if (num == i + 1)
-            {
-                ++i;
-                continue;
-            }
-
-            if (num == nums[num - 1])
-            {
-                ++i;
-                continue;
-            }
-            else
-            {
-                tmp = nums[num - 1];
-                nums[num - 1] = num;
-                nums[i] = tmp;
+                std::swap(nums[i], nums[nums[i] - 1]);
             }
         }
 
