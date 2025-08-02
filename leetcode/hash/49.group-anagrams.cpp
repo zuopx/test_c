@@ -14,6 +14,8 @@ https://leetcode.cn/problems/group-anagrams/?envType=study-plan-v2&envId=top-100
 示例 3:
     输入: strs = ["a"]
     输出: [["a"]]
+
+归根到底是给字母异位词找一个唯一标识，也就是哈希。
 */
 
 #include <algorithm>
@@ -24,27 +26,18 @@ using namespace std;
 
 class Solution
 {
-  public:
+public:
     vector<vector<string>> groupAnagrams(vector<string> &strs)
     {
         vector<vector<string>> r;
         unordered_map<string, vector<string>> m;
 
-        int i = 0;
-        for (auto s : strs)
+        for (auto &s : strs)
         {
-            sort(s.begin(), s.end());
+            string key = s;
+            sort(key.begin(), key.end());
 
-            if (m.find(s) != m.end())
-            {
-                m[s].emplace_back(strs[i]);
-            }
-            else
-            {
-                m[s] = vector<string>{strs[i]};
-            }
-
-            i++;
+            m[key].emplace_back(s);
         }
 
         for (auto &i : m)
@@ -62,17 +55,18 @@ int main()
 
     auto r = Solution().groupAnagrams(strs);
 
-    for (auto &s : strs)
-    {
-        cout << s << endl;
-    }
+    // for (auto &s : strs)
+    // {
+    //     cout << s << endl;
+    // }
 
     for (auto &strs : r)
     {
         for (auto &s : strs)
         {
-            cout << s << endl;
+            cout << s << ", ";
         }
+        cout << endl;
     }
 
     return 0;

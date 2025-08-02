@@ -1,6 +1,9 @@
 /*73. 矩阵置零
 
 https://leetcode.cn/problems/set-matrix-zeroes/description/?envType=study-plan-v2&envId=top-100-liked
+
+标记法，把矩阵中带0的行和列都找出来，然后把这些行和列都置0
+继续优化，可把空间复杂度将为O(1)，但损害了代码的可读性
 */
 
 #include <iostream>

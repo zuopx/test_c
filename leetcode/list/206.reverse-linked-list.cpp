@@ -32,7 +32,7 @@ public:
         {
             return head;
         }
-        ListNode *newHead = reverseList(head->next);
+        ListNode *newHead = reverseList2(head->next);
         head->next->next = head;
         head->next = nullptr;
         return newHead;
@@ -41,7 +41,7 @@ public:
 
 ListNode *reverseList(ListNode *head)
 {
-    return Solution().reverseList2(head);
+    return Solution().reverseList(head);
 }
 
 // Test Case 1: Empty list

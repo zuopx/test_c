@@ -1,6 +1,8 @@
 /*56.合并区间
 
 https://leetcode.cn/problems/merge-intervals/description/?envType=study-plan-v2&envId=top-100-liked
+
+先排序，再合并（选择和排序，是许多算法的重要组成部分）
 */
 
 #include <algorithm>
@@ -22,7 +24,7 @@ class Solution
 
         sort(intervals.begin(), intervals.end());
 
-        int i = 0, j = 1;
+        int i = 0, j = 1;   
         vector<int> *range1, *range2;
         while (j < intervals.size())
         {

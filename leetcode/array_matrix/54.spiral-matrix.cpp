@@ -1,6 +1,12 @@
 /*54. 螺旋矩阵
 
 https://leetcode.cn/problems/spiral-matrix/?envType=study-plan-v2&envId=top-100-liked
+
+
+1.  模拟法，递归
+
+怎样变化前进方向？碰壁，然后采用新的方向。
+将方向数值化：(x,y) 向右(0,1) 向下(1,0) 向左(0,-1) 向上(-1,0)
 */
 
 #include <iostream>

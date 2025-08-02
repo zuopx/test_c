@@ -5,6 +5,7 @@
  */
 
 #include <vector>
+#include <set>
 #include <iostream>
 
 namespace my
@@ -74,4 +75,86 @@ namespace my
         }
     }
 
+    // 辅助函数：创建有环链表
+    template <typename T>
+    ListNode<T> *createCycleList(const std::vector<T> &values, int cyclePos)
+    {
+        if (values.empty())
+        {
+            return nullptr;
+        }
+
+        ListNode<T> *head = new ListNode<T>(values[0]);
+        ListNode<T> *current = head;
+        ListNode<T> *cycleNode = nullptr;
+
+        // 创建链表节点
+        for (size_t i = 1; i < values.size(); ++i)
+        {
+            current->next = new ListNode<T>(values[i]);
+            current = current->next;
+
+            // 记录环开始的节点
+            if (static_cast<int>(i) == cyclePos)
+            {
+                cycleNode = current;
+            }
+        }
+
+        // 创建环：最后一个节点指向cyclePos位置的节点
+        if (cycleNode != nullptr)
+        {
+            current->next = cycleNode;
+        }
+        else if (cyclePos == 0)
+        {
+            // 指向头节点
+            current->next = head;
+        }
+
+        return head;
+    }
+
+    // 辅助函数：释放有环链表的内存（需要特殊处理避免无限循环）
+    template <typename T>
+    void deleteCycleList(ListNode<T> *head, int maxNodes = 100)
+    {
+        if (head == nullptr)
+            return;
+
+        std::set<ListNode<T> *> visited;
+        ListNode<T> *current = head;
+        int count = 0;
+
+        while (current != nullptr && count < maxNodes)
+        {
+            if (visited.find(current) != visited.end())
+            {
+                // 发现环，停止删除
+                break;
+            }
+
+            visited.insert(current);
+            ListNode<T> *temp = current;
+            current = current->next;
+            delete temp;
+            count++;
+        }
+    }
+
+    // 辅助函数：将链表转换为vector
+    template <typename T>
+    std::vector<T> listToVector(ListNode<T> *head)
+    {
+        std::vector<T> result;
+        ListNode<T> *current = head;
+
+        while (current)
+        {
+            result.push_back(current->val);
+            current = current->next;
+        }
+
+        return result;
+    }
 }

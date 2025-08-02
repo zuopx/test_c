@@ -1,6 +1,8 @@
 /*238. 除自身以外数组的乘积
 
 https://leetcode.cn/problems/product-of-array-except-self/description/?envType=study-plan-v2&envId=top-100-liked
+
+请 不要使用除法，且在 O(n) 时间复杂度内完成此题。
 */
 
 #include <array>
@@ -9,7 +11,7 @@ https://leetcode.cn/problems/product-of-array-except-self/description/?envType=s
 using namespace std;
 class Solution
 {
-  public:
+public:
     vector<int> productExceptSelf(vector<int> &nums)
     {
         int size = nums.size();
@@ -46,6 +48,21 @@ class Solution
         }
 
         return r;
+    }
+
+    std::vector<int> productExceptSelf2(std::vector<int> &nums)
+    {
+        std::vector<int> answer(nums.size(), 1);
+        int left = 0, right = nums.size() - 1;
+        int lp = 1, rp = 1;
+        while (right >= 0 && left < nums.size())
+        {
+            answer[right] *= rp;
+            answer[left] *= lp;
+            lp *= nums[left++];
+            rp *= nums[right--];
+        }
+        return answer;
     }
 };
 int main()

@@ -7,7 +7,7 @@ https://leetcode.cn/problems/add-two-numbers/description/?envType=study-plan-v2&
 解释：342 + 465 = 807.
 */
 #include <gtest/gtest.h>
-#include "mystl/list.h"
+#include "../mystl/list.h"
 
 using ListNode = my::ListNode<int>;
 
