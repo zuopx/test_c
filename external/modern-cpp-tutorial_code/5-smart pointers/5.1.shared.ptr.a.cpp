@@ -61,4 +61,18 @@ use_count: 返回引用计数，当引用计数为0时，回收对象
     复制语义：auto a = pointer; --> pointer.use_count == 2, a.use_count == 2
 
     使用移动语义后，如果执行"*pointer"，将触发"segmentation falut"
+
+11
+pointer.use_count() = 3
+pointer2.use_count() = 3
+pointer3.use_count() = 3
+reset pointer2:
+pointer.use_count() = 2
+pointer2.use_count() = 0
+pointer3.use_count() = 2
+reset pointer3:
+pointer.use_count() = 1
+pointer2.use_count() = 0
+pointer3.use_count() = 0
+1111    
 */

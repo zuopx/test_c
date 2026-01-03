@@ -49,6 +49,6 @@ g++ -o 3.2.function.wrap.out 3.2.function.wrap.cpp
 
 创建函数指针类型：using foo = void(int) <==> using foo = void(*)(int) <==> typedef void(*foo)(int)
 
-std::function: 函数的容器，可容纳匿名函数、函数指针，这样更安全
+std::function: 函数的容器，可容纳匿名函数、函数指针，这样更安全；而且更泛用，因为实现了类型擦除，只需参数类型和返回值类型相同，都可以存放在std::function容器中。
 std::bind, std::placeholders: 偏函数，python.functools.partial
 */
